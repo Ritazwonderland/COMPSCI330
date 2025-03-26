@@ -1,0 +1,166 @@
+\documentclass[11pt]{article}
+\usepackage{handout}
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\assignmentQuestionName}{Problem}
+\newcommand{\assignmentClass}{CS 330} % Course/class
+\newcommand{\assignmentTitle}{Homework 1} % Assignment title or name
+
+\newcommand{\AuthorOne}{Isaac Newton} % Student 1 name
+\newcommand{\NetIDOne}{inewton1} % Student 1 NetID
+
+% Optional; comment out next two lines if submitting alone
+\newcommand{\AuthorTwo}{Gottfried Wilhelm Leibniz} % Student 2 name
+\newcommand{\NetIDTwo}{gleibniz1} % Student 2 NetID
+
+\newcommand{\assignmentDueDate}{7/10/2024 @ 11:59pm} % Due date
+
+%----------------------------------------------------------------------------------------
+\title{CompSci 330: Design and Analysis of Algorithms\\Summer 2024, \assignmentTitle{} \\ Due: \assignmentDueDate{}}
+\date{}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	QUESTION 1
+%----------------------------------------------------------------------------------------
+
+\begin{question}
+
+Consider the following algorithm \textsc{SillySort} and its subroutine \textsc{Smerge}. Aptly named, \textsc{SillySort} is a \texttt{MergeSort}-like algorithm that sorts the given array $R[1..n]$ of $n$ integers. For all parts, assume that $n$ is a power of two and $R$ contains distinct integers (no duplicates).
+
+    \begin{algo} 
+        \textsc{\textul{SillySort$(R\Brack{1..n})$:}} \\ 
+        \> if $n > 1$:\\
+        \> \> \textsc{SillySort$(R\Brack{1..n/2})$} \\
+        \> \> \textsc{SillySort$(R\Brack{n/2+1..n})$} \\
+        \> \> \textsc{Smerge$(R\Brack{1..n})$}
+        \end{algo}
+        \begin{algo}
+        \textsc{\textul{Smerge$(R\Brack{1..n})$:}} \\ 
+        \> if $n =2$:\\
+        \> \>  if $R\Brack{1} > R\Brack{2}$:\\
+        \> \> \> swap $R\Brack{1} \longleftrightarrow R\Brack{2}$ \\
+        \> else: \\
+        \> \> for $i \gets 1$ to $n/4$:\\
+        \> \> \> swap $R\Brack{i+n/4} \longleftrightarrow R\Brack{i+n/2}$ \qquad\Comment{swap middle fourths}\\
+        \> \> \textsc{Smerge$(R\Brack{1..n/2})$} \qquad\Comment{leftmost half}\\
+        \> \> \textsc{Smerge$(R\Brack{n/2+1..n})$} \qquad\Comment{rightmost half}\\
+        \> \> \textsc{Smerge$(R\Brack{n/4+1..3n/4})$} \qquad\Comment{center half}
+        \end{algo}
+
+        Note: The notation $R\Brack{i..j}$ is a pointer to the subarray of an array $R$ from indices $i$ to $j$ (inclusive). Any operations on a subarray are in-place and thus occur on the original array that contains it. (This is the same as for the description of \textsc{MergeSort} and \textsc{QuickSort} from our textbook/lecture.)
+
+    \begin{enumerate}[label = (\alph*)]
+    \item Use induction to prove that $\texttt{Smerge}(R[1..n])$ sorts the given array $R$ in-place, assuming that $R[1..n/2]$ and $R[n/2+1...n]$ are sorted. \Hint{It may be useful to first follow the smallest $n/4$ and largest $n/4$ elements in $R$ before/between/after the initial for-loop and recursive calls.}
+    
+    \item State a recurrence that describes the runtime of \texttt{Smerge}, then solve it using the recursion tree method.
+    
+    \item State a recurrence that describes the runtime of \texttt{SillySort}, then solve it using the recursion tree method.
+
+    \end{enumerate}
+
+\emph{Additional ungraded exercise--do not submit:} Prove that $\textsc{SillySort}(R\Brack{1..n})$ indeed sorts $R$ using induction, assuming the correctness of \texttt{Smerge} from part (a).
+
+\begin{solution}
+TODO: Complete. For readability, it is preferred not to submit your final solutions with the entire problem statement included.
+\end{solution}
+
+\end{question}
+
+%----------------------------------------------------------------------------------------
+%	QUESTION 2
+%----------------------------------------------------------------------------------------
+
+\pagebreak
+\begin{question}
+
+Let $S = \{p_i=(x_i, y_i): 1 \le i \le n\}$ be a set of $n$ points on a 2D plane. We say that a point $p_i$ is \emph{northwest} (NW) of $p_j$ if $x_i \leq x_j$ and $y_i \geq y_j$, treating the $(-x)$-direction (resp., $(+y)$-direction) as west (resp., north).
+A point $p_i$ is a \emph{northwesterly} point of $S$ if there are no other points in $S$ NW of $p_i$.
+In the example below, the larger red points are the northwesterly points of $S$.\\
+
+\begin{figure}[htp]
+\centering
+\begin{tikzpicture}[scale=0.6]
+	\draw [<->,thick] (0,6) node (yaxis) [above] {$y$}
+	|- (9,0) node (xaxis) [right] {$x$};
+	\foreach \Point in {(4, 2), (3,4), (7,1), (8, 2), (6, 4)}{
+    	\fill \Point circle[radius=2.5pt];
+	}
+	\foreach \Point in {(1,1),(2,3),(3, 5),(5.5,5.5),(8,6.25)}{
+		\fill[color=red] \Point circle[radius=3.5pt];
+	}
+\end{tikzpicture}
+\end{figure}
+
+Describe an algorithm that returns the northwesterly points of $S$ in $O(n \log n)$ time. Prove the correctness of your algorithm using induction, then state and justify its runtime using the recursion tree method. \Hint{Sort then divide $S$ into two sets based on the $x$-coordinates of points, and ``conquer.'' What is the appropriate merge/combine step to obtain the overall solution?}
+
+\begin{solution}
+TODO: Complete. For readability, it is preferred not to submit your final solutions with the entire problem statement included.
+\end{solution}
+
+%--------------------------------------------
+
+\end{question}
+
+%----------------------------------------------------------------------------------------
+%	QUESTION 3
+%----------------------------------------------------------------------------------------
+
+\pagebreak
+\begin{question}
+An array $A[1..n]$ of $n$ distinct integers (no duplicates) is considered \emph{twirled} if it consists of two non-empty contiguous sequences, $L$ and $R$, that are sorted in increasing order and all elements in $L$ are greater than those in $R$. In other words, if $R$ instead appeared left of $L$, the entire resulting sequence would be sorted in increasing order. \\
+
+For example, in the following twirled array, the left subsequence is underlined and has length 6, the right subsequence is overlined and has length 4, and indeed all elements in the left subsequence are greater than those in the right subsequence:
+\begin{center}
+    \texttt{[\underline{12,14,19,23,25,27},$\overline{\texttt{2,3,5,7}}$]}
+\end{center}
+
+Describe an $O(\log n)$-time algorithm to return the length of the left subsequence of a given twirled array $A$. Prove its correctness using induction, then state and justify its runtime using the recursion tree method.\\
+
+\Hint{Consider a variant of binary search. Given an element $x$ of $A$, what information do you need to decide which of the left and right subsequences that $x$ belongs to?}
+\end{question}
+
+\begin{solution}
+TODO: Complete. For readability, it is preferred not to submit your final solutions with the entire problem statement included.
+\end{solution}
+
+%----------------------------------------------------------------------------------------
+%	QUESTION 4
+%----------------------------------------------------------------------------------------
+\pagebreak
+\begin{question}
+
+In the following, all arrays/sequences are $0$-indexed (as in Python). A \emph{flippable list} is a data structure $f$ that stores a finite sequence $S_f$ of distinct integers and supports the following two operations:
+	\begin{itemize}
+		\item \textsc{Peek}$(i)$: Return the object at index $i$ in $S_f$, where $0$ is the first index.
+		\item \textsc{Flip}$(i,j)$: Reverse (``flip'') the subsequence $S_f[i..j-1]$ if $i < j-1$ and do nothing otherwise. (NOTE: Notice the $j-1$ in the definition. This is to mimic Python's syntax: \texttt{x[i:j]} returns the sublist of list $\texttt{x}$ from $\texttt{i}$ to $\texttt{j-1}$.)
+	\end{itemize}
+	
+	\textbf{Example}: If $S_f = \Brack{4, 5, 2, 1, 3}$, \textsc{Peek}$(1)$ returns $5$ and $\textsc{Flip}(1,4)$ modifies $S_f$ so that it becomes $\Brack{4, \underline{1, 2, 5}, 3}$, where the underlined symbols are those in the affected subsequence.\\
+
+For this problem, you will complete an implementation of a method similar to the \textsc{Partition} subroutine for \textsc{QuickSort} in Python 3. Download the class file \texttt{flippable\_list.py} and your template file \texttt{flartition.py} on Canvas in the Files section. The file \texttt{flippable\_list.py} includes the \texttt{FlippableList} class, which supports the \textsc{Peek} and \textsc{Flip} operations. For any Python list $S$, a FlippableList object representing $S$ is constructed and returned by calling \textsc{FlippableList}$(S)$. \EMPH{You may not directly access the \texttt{\_lst} attribute of the FlippableList objects in your submission, otherwise you will receive a grade of 0.} However, you may find checking it to be useful while testing your code. See also the helper functions provided in the file.\\
+
+\texttt{flartition.py} is the file in which you will complete the following task and cite any/all collaboration before uploading it to Gradescope under ``HW1 Problem 4 (Code)''. This problem has no written component.\\
+
+Let $f$ be a flippable list, let $i,j$ be indices of $S_f$, and let $p$ be an integer (the ``pivot'' value). Design and implement a recursive method 
+\textsc{Flartition}$(f,i,j,p)$ that modifies the subsequence $S_f[i..j-1]$, using only $\textsc{Peek}$ and $\textsc{Flip}$ operations on $f$, and returns an index $k$ where:
+\begin{enumerate}
+    \item all elements in $S_f[i..k-1]$ are all \emph{less than} $p$, and
+    \item all elements in $S_f[k..j]$ are all \emph{at least} $p$.
+\end{enumerate}
+In other words, the returned index $k$ is the first index of an element in the modified subsequence that is at least $p$; if all elements in the subsequence are less than $p$, then $k=j$.
+\footnote{Note that this method differs from the \textsc{Partition} subroutine from \textsc{QuickSort} in the notes/lecture. In particular, the parameter $p$ need not be in $S_f[i..j-1]$, and elements equal to $p$ may end up anywhere after the elements smaller than $p$, not necessarily before those greater than $p$.} \\
+
+\textbf{Example}: For flippable list $f$ with sequence $S_f = \Brack{4,9,330,1,2,5,8,16}$, a valid value of $S_f$ after $\textsc{Flartition}(f,2,7,6)$ is $\Brack{4, 9, \underline{2, 1, 5, 330, 8}, 16}$, where the underlined elements are those in the affected subsequence. The return value of the call is $5$, which is the index of the first element ($330$) at least the pivot value of $6$. The orderings of the elements less than/at least the pivot value $6$ are arbitrary.\\
+
+\Hint{Split the problem into two halves, conquer, and then finish. Note that the median index of a subsequence $S_f[i..j-1]$ can be computed as $(i+j)/2$, rounded down.}
+
+\end{question}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
